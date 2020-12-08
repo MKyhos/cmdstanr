@@ -516,7 +516,8 @@ CmdStanProcs <- R6::R6Class(
         args = args,
         wd = wd,
         stdout = "|",
-        stderr = "|"
+        stderr = "|",
+        echo_cmd = TRUE
       )
       invisible(self)
     },

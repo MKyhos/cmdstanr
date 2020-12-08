@@ -184,7 +184,8 @@ SampleArgs <- R6::R6Class(
                           init_buffer = NULL,
                           term_buffer = NULL,
                           window = NULL,
-                          fixed_param = FALSE) {
+                          fixed_param = FALSE,
+                          cross_chain_ess = NULL) {
 
       self$iter_warmup <- iter_warmup
       self$iter_sampling <- iter_sampling
@@ -197,6 +198,7 @@ SampleArgs <- R6::R6Class(
       self$metric <- metric
       self$inv_metric <- inv_metric
       self$fixed_param <- fixed_param
+      self$adapt_cross_chain_ess <- cross_chain_ess
       if (!is.null(inv_metric)) {
         if (!is.null(metric_file)) {
           stop("Only one of inv_metric and metric_file can be specified.",
@@ -286,10 +288,11 @@ SampleArgs <- R6::R6Class(
           .make_arg("step_size", cmdstan_arg_name = "stepsize", idx = idx),
           "engine=nuts",
           .make_arg("max_treedepth", cmdstan_arg_name = "max_depth"),
-          if (!is.null(self$adapt_delta) || !is.null(self$adapt_engaged))
+          if (!is.null(self$adapt_delta) || !is.null(self$adapt_engaged) || !is.null(self$cross_chain_ess))
             "adapt",
           .make_arg("adapt_delta"),
           .make_arg("adapt_engaged"),
+          .make_arg("adapt_cross_chain_ess"),
           .make_arg("init_buffer"),
           .make_arg("term_buffer"),
           .make_arg("window")

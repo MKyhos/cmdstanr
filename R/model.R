@@ -1090,7 +1090,8 @@ sample_mpi_method <- function(data = NULL,
                               fixed_param = FALSE,
                               sig_figs = NULL,
                               validate_csv = TRUE,
-                              show_messages = TRUE) {
+                              show_messages = TRUE, 
+                              cross_chain_ess = NULL) {
   if (fixed_param) {
     chains <- 1
     save_warmup <- FALSE
@@ -1113,7 +1114,8 @@ sample_mpi_method <- function(data = NULL,
     init_buffer = init_buffer,
     term_buffer = term_buffer,
     window = window,
-    fixed_param = fixed_param
+    fixed_param = fixed_param,
+    cross_chain_ess = cross_chain_ess
   )
   cmdstan_args <- CmdStanArgs$new(
     method_args = sample_args,
